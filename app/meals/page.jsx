@@ -4,8 +4,8 @@ import MealsGrid from "../_components/meals/meals-grid";
 import classes from "./page.module.css";
 import { getMeals } from "../_lib/meals";
 
-function Page() {
-  const meals = getMeals();
+async function Page() {
+  const meals = await getMeals();
   return (
     <>
       <header className={classes.header}>
