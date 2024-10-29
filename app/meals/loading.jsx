@@ -1,7 +1,7 @@
 import classes from "./loading.module.css";
 
 function Loading() {
-  return <div className={classes.loading}>Fetching meals...</div>;
+  return <p className={classes.loading}>Fetching meals...</p>;
 }
 
 export default Loading;
