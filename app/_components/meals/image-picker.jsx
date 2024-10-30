@@ -51,6 +51,7 @@ function ImagePicker({ label, name }) {
           accept="image/png, image/jpg, image/jpeg"
           ref={imageInput}
           onChange={handleImageChange}
+          required
         />
         <button
           className={classes.button}
