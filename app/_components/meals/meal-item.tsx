@@ -3,7 +3,21 @@ import Image from "next/image";
 
 import classes from "./meal-item.module.css";
 
-export default function MealItem({ title, slug, image, summary, creator }) {
+type MealItemProps = {
+  title: string;
+  slug: string;
+  image: string;
+  summary: string;
+  creator: string;
+};
+
+export default function MealItem({
+  title,
+  slug,
+  image,
+  summary,
+  creator,
+}: MealItemProps) {
   return (
     <article className={classes.meal}>
       <header>

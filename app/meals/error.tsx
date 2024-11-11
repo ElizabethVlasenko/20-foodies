@@ -1,6 +1,12 @@
 "use client";
 
-function Error({ error }) {
+type ErrorProps = {
+  error: {
+    message: string;
+  };
+};
+
+function Error({ error }: ErrorProps) {
   return (
     <main className="error">
       <h1>An error occurred!</h1>

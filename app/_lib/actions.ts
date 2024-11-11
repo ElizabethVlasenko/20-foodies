@@ -4,11 +4,21 @@ import { redirect } from "next/navigation";
 import { saveMeal } from "./meals";
 import { revalidatePath } from "next/cache";
 
-function isInvalidText(text) {
+function isInvalidText(text: string) {
   return !text || text.trim() === "";
 }
 
-export async function shareMeal(previousState, formData) {
+export type FormDataMeal = {
+  title: string;
+  summary: string;
+  instructions: string;
+  image: File | string;
+  creator: string;
+  creator_email: string;
+  slug?: string;
+};
+
+export async function shareMeal(previousState: FormData, formData: FormData) {
   const meal = {
     title: formData.get("title"),
     summary: formData.get("summary"),
@@ -16,7 +26,11 @@ export async function shareMeal(previousState, formData) {
     image: formData.get("image"),
     creator: formData.get("name"),
     creator_email: formData.get("email"),
-  };
+  } as FormDataMeal;
+
+  if (typeof meal.image === "string") {
+    return;
+  }
 
   if (
     isInvalidText(meal.title) ||
@@ -24,7 +38,7 @@ export async function shareMeal(previousState, formData) {
     isInvalidText(meal.instructions) ||
     isInvalidText(meal.creator) ||
     isInvalidText(meal.creator_email) ||
-    !meal.creator_email.include("@") ||
+    !meal.creator_email.includes("@") ||
     !meal.image ||
     meal.image.size === 0
   ) {
