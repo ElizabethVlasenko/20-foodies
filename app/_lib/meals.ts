@@ -3,7 +3,7 @@ import fs from "node:fs";
 import sql from "better-sqlite3";
 import slugify from "slugify";
 import xss from "xss";
-import { FormDataMeal } from "./actions";
+import { type FormDataMeal } from "./actions";
 
 const db = sql("meals.db");
 
@@ -20,16 +20,18 @@ export type MealData = {
 
 export type MealsData = MealData[];
 
-export async function getMeals() {
+export async function getMeals(): Promise<MealsData> {
   await new Promise((resolve) => setTimeout(resolve, 2000));
   // throw new Error("Loading meals failed");
   const data = db.prepare("SELECT * FROM meals").all(); //.run() for inserting data; .all() used during fetching
   // console.log(data);
-  return data;
+  return data as MealsData;
 }
 
-export function getMeal(slug: string) {
-  return db.prepare("SELECT * FROM meals WHERE slug = ?").get(slug);
+export async function getMeal(slug: string): Promise<MealData> {
+  return (await db
+    .prepare("SELECT * FROM meals WHERE slug = ?")
+    .get(slug)) as MealData;
 }
 
 export async function saveMeal(meal: FormDataMeal) {

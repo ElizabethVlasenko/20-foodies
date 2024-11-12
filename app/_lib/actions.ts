@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { saveMeal } from "./meals";
 import { revalidatePath } from "next/cache";
+import { type State } from "../meals/share/page";
 
 function isInvalidText(text: string) {
   return !text || text.trim() === "";
@@ -18,7 +19,10 @@ export type FormDataMeal = {
   slug?: string;
 };
 
-export async function shareMeal(previousState: FormData, formData: FormData) {
+export async function shareMeal(
+  previousState: State,
+  formData: FormData
+): Promise<State> {
   const meal = {
     title: formData.get("title"),
     summary: formData.get("summary"),
@@ -29,7 +33,7 @@ export async function shareMeal(previousState: FormData, formData: FormData) {
   } as FormDataMeal;
 
   if (typeof meal.image === "string") {
-    return;
+    return { message: "Invalid input." };
   }
 
   if (

@@ -1,7 +1,12 @@
+import { type MealsData } from "../../_lib/meals";
 import MealItem from "./meal-item";
 import classes from "./meals-grid.module.css";
 
-function MealsGrid({ meals }) {
+type MealsGridProps = {
+  meals: MealsData;
+};
+
+function MealsGrid({ meals }: MealsGridProps) {
   return (
     <ul className={classes.meals}>
       {meals.map((meal) => (

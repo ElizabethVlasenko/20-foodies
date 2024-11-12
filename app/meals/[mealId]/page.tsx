@@ -3,8 +3,14 @@ import classes from "./page.module.css";
 import { getMeal } from "../../_lib/meals";
 import { notFound } from "next/navigation";
 
-export async function generateMetadata({ params }) {
-  const meal = getMeal(params.mealId);
+type PageProps = {
+  params: {
+    mealId: string;
+  };
+};
+
+export async function generateMetadata({ params }: PageProps) {
+  const meal = await getMeal(params.mealId);
 
   if (!meal) {
     notFound();
@@ -16,8 +22,8 @@ export async function generateMetadata({ params }) {
   };
 }
 
-function Page({ params }) {
-  const meal = getMeal(params.mealId);
+async function Page({ params }: PageProps) {
+  const meal = await getMeal(params.mealId);
 
   if (!meal) {
     notFound();

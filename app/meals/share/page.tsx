@@ -7,8 +7,17 @@ import { useFormState } from "react-dom";
 import { shareMeal } from "../../_lib/actions";
 import MealsFormSubmit from "../../_components/meals/meals-form-submit";
 
+export type State = {
+  message: string | null;
+};
+
 export default function ShareMealPage() {
-  const [state, formAction] = useFormState(shareMeal, { message: null });
+  const initialState = { message: null };
+
+  const [state, formAction] = useFormState<State, FormData>(
+    shareMeal,
+    initialState
+  );
   return (
     <>
       <header className={classes.header}>
@@ -42,7 +51,7 @@ export default function ShareMealPage() {
             <textarea
               id="instructions"
               name="instructions"
-              rows="10"
+              rows={10}
               required
             ></textarea>
           </p>

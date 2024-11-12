@@ -24,7 +24,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx",
-    "app/_components/meals/meals-grid.jsx",
+    "app/_components/meals/meals-grid.tsx",
     "app/_lib/meals.ts"
   ],
   "exclude": ["node_modules"]
